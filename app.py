@@ -20,10 +20,10 @@ st.sidebar.markdown("---")
 st.sidebar.caption("crazy type shit")
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14, tab15 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14, tab15, tab16 = st.tabs([
     "🔁 Convertisseur", "📆 Dates & Temps", "🍽️ Cuisine", "📝 Notes", "🎲 Fun",
     "🔔 Alertes", "🧠 Mot du jour", "📊 Épargne", "🧘 Bien-être","🔍 Recherche Web", "📁 Téléversement", "🗓️ Planning",
-    "🔐 MDP Sécurisé", "🤖 Chatbot", "📊 Crypto", 
+    "🔐 MDP Sécurisé", "🤖 Chatbot", "📊 Crypto","⚡ Force & Vitesse" 
 ])
 
 # 1️⃣ Convertisseur
@@ -231,3 +231,35 @@ with tab15:
 
 
 
+with tab16:
+    st.header("⚡ Convertisseur de Force et Vitesse")
+
+    category = st.radio("Choisis une catégorie :", ["Force", "Vitesse"], horizontal=True)
+
+    force_units = {
+        "Newton (N)": "newton",
+        "Kilogramme-force (kgf)": "kilogram_force",
+        "Livre-force (lbf)": "pound_force",
+        "Dyne (dyn)": "dyne"
+    }
+
+    speed_units = {
+        "mètre/seconde (m/s)": "meter/second",
+        "kilomètre/heure (km/h)": "kilometer/hour",
+        "mile/heure (mph)": "mile/hour",
+        "noeud (kn)": "knot"
+    }
+
+    units = force_units if category == "Force" else speed_units
+
+    value = st.number_input("Valeur à convertir", value=1.0, step=0.1)
+    from_unit = st.selectbox("De", list(units.keys()))
+    to_unit = st.selectbox("Vers", list(units.keys()))
+
+    if st.button("🚀 Convertir"):
+        try:
+            q = ureg.Quantity(value, units[from_unit])
+            result = q.to(units[to_unit]).magnitude
+            st.success(f"{value} {from_unit} = {result:.4f} {to_unit}")
+        except Exception as e:
+            st.error(f"Erreur : {e}")
