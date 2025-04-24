@@ -17,7 +17,7 @@ except:
     st.sidebar.warning("⛔ Expression invalide")
 
 st.sidebar.markdown("---")
-st.sidebar.caption("Créé par Noah 💡")
+st.sidebar.caption("crazy type shit")
 
 # Tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14, tab15 = st.tabs([
